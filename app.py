@@ -8,27 +8,47 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+# Sembunyikan Header, Toolbar Fork/GitHub, Menu, Footer, dan Widget Badge Streamlit
 st.markdown("""
 <style>
-    header[data-testid="stHeader"] { 
-        visibility: hidden; 
-        height: 0%; 
-    }
-    #MainMenu { 
-        visibility: hidden; 
-    }
-    footer { 
-        visibility: hidden; 
-    }
-    
-   
-    [class*="viewerBadge"], 
-    [data-testid="stStatusWidget"],
-    [data-testid="manage-app-button"] {
+    header[data-testid="stHeader"], 
+    [data-testid="stHeader"], 
+    .stAppHeader, 
+    [data-testid="stDecoration"] {
         display: none !important;
+        visibility: hidden !important;
+        height: 0px !important;
+    }
+
+    
+    [data-testid="stToolbar"], 
+    #MainMenu {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    
+    footer {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    
+    [data-testid="stStatusWidget"], 
+    div[class*="StatusWidget"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    [data-testid="manage-app-button"], 
+    [class*="viewerBadge"], 
+    div[class*="viewerBadge"] {
+        display: none !important;
+        visibility: hidden !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
