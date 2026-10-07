@@ -1,4 +1,4 @@
-"""Tampilan tab Flashcard Pintar untuk metode belajar spaced repetition."""
+# Tampilan tab Flashcard Pintar untuk metode belajar spaced repetition.
 from typing import Dict, Any
 import streamlit as st
 from core.generator import make_flashcards
@@ -6,7 +6,7 @@ from ui.common import pick_document
 
 
 def render(student: Dict[str, Any]) -> None:
-    """Merender antarmuka flashcard interaktif per mahasiswa."""
+    # Merender antarmuka flashcard interaktif per mahasiswa.
     kiri, kanan = st.columns([1, 2])
     cards_key = f"cards_{student['id']}"
     idx_key = f"card_idx_{student['id']}"

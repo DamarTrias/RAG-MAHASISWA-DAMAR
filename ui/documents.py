@@ -1,4 +1,4 @@
-"""Tampilan tab manajemen dokumen materi kuliah (Upload & Hapus terisolasi)."""
+# Tampilan tab manajemen dokumen materi kuliah (Upload & Hapus terisolasi).
 from typing import Dict, Any
 import streamlit as st
 from core.db import delete_document, list_documents
@@ -6,7 +6,7 @@ from core.rag import ingest
 
 
 def render(student: Dict[str, Any]) -> None:
-    """Merender tab unggah materi kuliah dan daftar dokumen aktif."""
+    # Merender tab unggah materi kuliah dan daftar dokumen aktif.
     kiri, kanan = st.columns([1.1, 1.9])
 
     with kiri:

@@ -1,4 +1,4 @@
-"""Alur RAG: Ingestion (chunking + embedding) -> Retrieval -> Generation dengan Sitasi."""
+# Alur RAG: Ingestion (chunking + embedding) -> Retrieval -> Generation dengan Sitasi.
 from typing import List, Tuple, Dict, Any, Optional
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -11,7 +11,7 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=120)
 
 
 def ingest(student_id: str, filename: str, data: bytes) -> int:
-    """Memproses file, membuat embedding vektor, dan menyimpannya secara terisolasi per student_id."""
+    # Memproses file, membuat embedding vektor, dan menyimpannya secara terisolasi per student_id.
     pages, ext = load_file(filename, data)
     texts: List[str] = []
     citations: List[str] = []
@@ -60,7 +60,7 @@ def ingest(student_id: str, filename: str, data: bytes) -> int:
 
 
 def retrieve(student_id: str, question: str, doc_id: Optional[str] = None, k: int = 5) -> List[Dict[str, Any]]:
-    """Mencari potongan dokumen paling relevan via Supabase match_chunks (Dibatasi per student_id)."""
+    #  Mencari potongan dokumen paling relevan via Supabase match_chunks (Dibatasi per student_id).
     if not question.strip():
         return []
     
@@ -77,7 +77,7 @@ def retrieve(student_id: str, question: str, doc_id: Optional[str] = None, k: in
 
 
 def answer(student_id: str, question: str, doc_id: Optional[str] = None) -> Tuple[str, List[str]]:
-    """Menjawab pertanyaan mahasiswa dengan sitasi rujukan yang akurat."""
+    #  Menjawab pertanyaan mahasiswa dengan sitasi rujukan yang akurat.
     hits = retrieve(student_id, question, doc_id=doc_id, k=5)
     if not hits:
         return "Materi terkait tidak ditemukan dalam dokumen Anda. Pastikan Anda telah mengunggah dokumen materi terlebih dahulu.", []

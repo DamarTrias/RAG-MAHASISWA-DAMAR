@@ -1,4 +1,4 @@
-"""Modul autentikasi mahasiswa: Hashing kata sandi, Registrasi, dan Login."""
+# Modul autentikasi mahasiswa: Hashing kata sandi, Registrasi, dan Login.
 import hashlib
 import hmac
 import secrets
@@ -7,7 +7,7 @@ from core.db import db
 
 
 def hash_password(password: str) -> str:
-    """Mengamankan kata sandi dengan salt kriptografis unik 16-byte menggunakan PBKDF2-HMAC-SHA256."""
+    # Mengamankan kata sandi dengan salt kriptografis unik 16-byte menggunakan PBKDF2-HMAC-SHA256.# 
     salt = secrets.token_hex(16)
     key = hashlib.pbkdf2_hmac(
         "sha256",
@@ -19,7 +19,7 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(password: str, stored_hash: str) -> bool:
-    """Memeriksa kecocokan kata sandi dengan hash yang tersimpan secara aman dari timing attack."""
+    # Memeriksa kecocokan kata sandi dengan hash yang tersimpan secara aman dari timing attack.# 
     if not stored_hash or "$" not in stored_hash:
         return False
     try:
@@ -36,7 +36,7 @@ def verify_password(password: str, stored_hash: str) -> bool:
 
 
 def register_user(name: str, nim: str, password: str) -> Tuple[bool, str]:
-    """Mendaftarkan akun mahasiswa baru ke tabel students di Supabase."""
+    # Mendaftarkan akun mahasiswa baru ke tabel students di Supabase.# 
     name_clean = name.strip()
     nim_clean = nim.strip()
     pass_clean = password.strip()
@@ -71,7 +71,7 @@ def register_user(name: str, nim: str, password: str) -> Tuple[bool, str]:
 
 
 def login_user(nim: str, password: str) -> Tuple[bool, Optional[Dict[str, Any]], str]:
-    """Memverifikasi kredensial NIM dan kata sandi mahasiswa."""
+    # Memverifikasi kredensial NIM dan kata sandi mahasiswa.# 
     nim_clean = nim.strip()
     pass_clean = password.strip()
 

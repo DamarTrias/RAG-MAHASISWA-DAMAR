@@ -1,4 +1,4 @@
-"""Membaca dan mengekstrak dokumen multi-format (PDF, PPTX, DOCX, Gambar) beserta label sitasi."""
+# Membaca dan mengekstrak dokumen multi-format (PDF, PPTX, DOCX, Gambar) beserta label sitasi.
 import base64
 import io
 from typing import List, Tuple, Callable
@@ -10,7 +10,7 @@ from core.ai import vision_llm, to_text
 
 
 def read_image(data: bytes, ext: str) -> List[Tuple[str, str]]:
-    """Mengekstrak dan mentranskripsi konten visual materi menggunakan Gemini Vision Multimodal."""
+    # Mengekstrak dan mentranskripsi konten visual materi menggunakan Gemini Vision Multimodal.
     mime = "jpeg" if ext.lower() in ("jpg", "jpeg") else ext.lower()
     b64 = base64.b64encode(data).decode("utf-8")
     
@@ -33,7 +33,7 @@ def read_image(data: bytes, ext: str) -> List[Tuple[str, str]]:
 
 
 def read_pdf(data: bytes, ext: str) -> List[Tuple[str, str]]:
-    """Membaca PDF per halaman dengan OCR Vision otomatis untuk halaman diagram/infografis."""
+    # Membaca PDF per halaman dengan OCR Vision otomatis untuk halaman diagram/infografis.
     doc = fitz.open(stream=data, filetype="pdf")
     results: List[Tuple[str, str]] = []
 
@@ -67,7 +67,7 @@ def read_pdf(data: bytes, ext: str) -> List[Tuple[str, str]]:
 
 
 def read_pptx(data: bytes, ext: str) -> List[Tuple[str, str]]:
-    """Membaca presentasi PowerPoint per slide dengan ekstraksi judul, bentuk, dan tabel."""
+    # Membaca presentasi PowerPoint per slide dengan ekstraksi judul, bentuk, dan tabel.
     prs = Presentation(io.BytesIO(data))
     results: List[Tuple[str, str]] = []
 
@@ -106,7 +106,7 @@ def read_pptx(data: bytes, ext: str) -> List[Tuple[str, str]]:
 
 
 def read_docx(data: bytes, ext: str) -> List[Tuple[str, str]]:
-    """Membaca dokumen Word (.docx) dengan pemisahan per bagian paragraf dan tabel."""
+    # Membaca dokumen Word (.docx) dengan pemisahan per bagian paragraf dan tabel.
     doc = Document(io.BytesIO(data))
     paras = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
     results: List[Tuple[str, str]] = []
@@ -142,7 +142,7 @@ READERS = {
 
 
 def load_file(filename: str, data: bytes) -> Tuple[List[Tuple[str, str]], str]:
-    """Mendeteksi ekstensi file dan memuat seluruh bagian teks beserta label sitasi."""
+    # Mendeteksi ekstensi file dan memuat seluruh bagian teks beserta label sitasi.
     ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
     if ext not in READERS:
         supported = ", ".join(f".{k}" for k in READERS.keys())

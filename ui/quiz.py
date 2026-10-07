@@ -1,4 +1,4 @@
-"""Tampilan tab Generatif Soal (Kuis Pilihan Ganda & Essay)."""
+# Tampilan tab Generatif Soal (Kuis Pilihan Ganda & Essay).
 from typing import Dict, Any
 import streamlit as st
 from core.generator import make_quiz
@@ -6,7 +6,7 @@ from ui.common import pick_document
 
 
 def render(student: Dict[str, Any]) -> None:
-    """Merender tab generator soal latihan ujian otomatis dari materi."""
+    # Merender tab generator soal latihan ujian otomatis dari materi.
     kiri, kanan = st.columns([1, 2])
     quiz_key = f"quiz_{student['id']}"
 

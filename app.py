@@ -8,6 +8,29 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+st.markdown("""
+<style>
+    header[data-testid="stHeader"] { 
+        visibility: hidden; 
+        height: 0%; 
+    }
+    #MainMenu { 
+        visibility: hidden; 
+    }
+    footer { 
+        visibility: hidden; 
+    }
+    
+   
+    [class*="viewerBadge"], 
+    [data-testid="stStatusWidget"],
+    [data-testid="manage-app-button"] {
+        display: none !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
 
 from core.db import list_students
 from ui import chat, documents, flashcards, quiz
@@ -16,9 +39,8 @@ from ui import chat, documents, flashcards, quiz
 if "user" not in st.session_state or st.session_state["user"] is None:
     from ui import auth
     auth.render()
-    st.stop()  # Berhenti di sini jika belum login
+    st.stop() 
 
-# Jika sudah login, ambil data mahasiswa aktif dari sesi
 student = st.session_state["user"]
 
 

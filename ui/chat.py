@@ -1,4 +1,4 @@
-"""Tampilan tab Chatbot Akademik interaktif dengan sitasi rujukan."""
+# Tampilan tab Chatbot Akademik interaktif dengan sitasi rujukan.
 from typing import Dict, Any
 import streamlit as st
 from core.rag import answer
@@ -6,7 +6,7 @@ from ui.common import pick_document
 
 
 def render(student: Dict[str, Any]) -> None:
-    """Merender tab obrolan chatbot akademik dengan isolasi riwayat per mahasiswa."""
+    # Merender tab obrolan chatbot akademik dengan isolasi riwayat per mahasiswa.
     kiri, kanan = st.columns([1, 2.5])
     chat_key = f"chat_{student['id']}"
     riwayat = st.session_state.setdefault(chat_key, [])

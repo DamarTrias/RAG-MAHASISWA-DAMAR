@@ -1,10 +1,10 @@
-"""Antarmuka formulir Masuk (Login) dan Daftar Akun (Register) Mahasiswa."""
+# Antarmuka formulir Masuk (Login) dan Daftar Akun (Register) Mahasiswa.
 import streamlit as st
 from core.auth import login_user, register_user
 
 
 def render() -> None:
-    """Merender form autentikasi di tengah layar."""
+    # Merender form autentikasi di tengah layar.
     # Membuat tata letak kartu di tengah layar (centered card)
     col_left, col_center, col_right = st.columns([1, 1.8, 1])
 

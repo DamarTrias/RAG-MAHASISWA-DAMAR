@@ -1,4 +1,4 @@
-"""Generator soal latihan ujian dan flashcard terisolasi dari materi mahasiswa."""
+# Generator soal latihan ujian dan flashcard terisolasi dari materi mahasiswa.
 import json
 import re
 from typing import List, Optional
@@ -33,7 +33,7 @@ class SetKartu(BaseModel):
 
 
 def extract_json_from_text(text: str) -> dict:
-    """Mengekstrak dan mem-parsing blok JSON dari respon teks model secara aman."""
+    # Mengekstrak dan mem-parsing blok JSON dari respon teks model secara aman.
     # Bersihkan markdown ```json ... ``` jika ada
     cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip(), flags=re.MULTILINE)
     cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE)
@@ -47,7 +47,7 @@ def extract_json_from_text(text: str) -> dict:
 
 
 def get_context(student_id: str, doc_id: Optional[str] = None, limit: int = 15) -> str:
-    """Mengambil cuplikan materi milik mahasiswa untuk dijadikan bahan penyusunan soal atau flashcard."""
+    # Mengambil cuplikan materi milik mahasiswa untuk dijadikan bahan penyusunan soal atau flashcard.
     query = db.table("chunks").select("content, citation").eq("student_id", student_id)
     if doc_id:
         query = query.eq("document_id", doc_id)
@@ -60,7 +60,7 @@ def get_context(student_id: str, doc_id: Optional[str] = None, limit: int = 15) 
 
 
 def make_quiz(student_id: str, doc_id: Optional[str], jumlah: int, level: str, tipe: str) -> List[Soal]:
-    """Menghasilkan paket soal kuis (Pilihan Ganda atau Essay) dalam mode JSON murni (bebas dari error tool-use)."""
+    # Menghasilkan paket soal kuis (Pilihan Ganda atau Essay) dalam mode JSON murni (bebas dari error tool-use).
     context = get_context(student_id, doc_id)
     
     if tipe == "Pilihan Ganda":
@@ -94,7 +94,7 @@ def make_quiz(student_id: str, doc_id: Optional[str], jumlah: int, level: str, t
 
 
 def make_flashcards(student_id: str, doc_id: Optional[str], jumlah: int) -> List[Kartu]:
-    """Menghasilkan set flashcard (Konsep/Tanya -> Jawab) dalam mode JSON murni."""
+    # Menghasilkan set flashcard (Konsep/Tanya -> Jawab) dalam mode JSON murni.
     context = get_context(student_id, doc_id)
     prompt = (
         f"Buatlah {jumlah} buah flashcard belajar cerdas (sisi depan: pertanyaan atau istilah kunci, "
