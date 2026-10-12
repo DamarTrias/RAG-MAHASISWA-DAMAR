@@ -39,10 +39,7 @@ def read_pdf(data: bytes, ext: str) -> List[Tuple[str, str]]:
 
     for i, page in enumerate(doc, 1):
         digital_text = (page.get_text() or "").strip()
-        has_images = len(page.get_images()) > 0
-        
-        # Jika teks digital sangat sedikit (< 100 huruf) dan memiliki gambar, atau halaman visual murni:
-        needs_vision = (has_images and len(digital_text) < 100) or (len(digital_text) == 0 and has_images)
+        needs_vision = len(digital_text) < 100
         
         if needs_vision:
             try:
@@ -64,7 +61,6 @@ def read_pdf(data: bytes, ext: str) -> List[Tuple[str, str]]:
 
     doc.close()
     return results
-
 
 def read_pptx(data: bytes, ext: str) -> List[Tuple[str, str]]:
     # Membaca presentasi PowerPoint per slide dengan ekstraksi judul, bentuk, dan tabel.
