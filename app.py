@@ -32,7 +32,7 @@ with col_header:
 with col_account:
     initial_char = student['name'][0].upper() if student.get('name') else 'M'
     col_user_info, col_btn_logout = st.columns([2.6, 1.2], vertical_alignment="center")
-    with col_user_info:
+    with col_user_info: 
         st.markdown(f"""
         <div style="
             display: flex;
