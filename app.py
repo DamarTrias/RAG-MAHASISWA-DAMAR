@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 from core.db import list_students
-from ui import chat, documents, flashcards, quiz
+from ui import chat, dashboard, documents, flashcards, quiz
 
 # Cek apakah mahasiswa sudah login
 if "user" not in st.session_state or st.session_state["user"] is None:
@@ -23,19 +23,53 @@ student = st.session_state["user"]
 
 
 # ---------- Header & Pemilihan Akun Mahasiswa ----------
-col_header, col_account = st.columns([3, 2])
+col_header, col_account = st.columns([2.7, 2.3], vertical_alignment="center")
 
 with col_header:
     st.title("🎓 RAG Mahasiswa AI")
     st.caption("Sistem Belajar Cerdas Terisolasi Per Mahasiswa")
 
 with col_account:
-    col_user_info, col_btn_logout = st.columns([2.2, 1])
+    initial_char = student['name'][0].upper() if student.get('name') else 'M'
+    col_user_info, col_btn_logout = st.columns([2.6, 1.2], vertical_alignment="center")
     with col_user_info:
-        st.markdown(f"**👤 {student['name']}**")
-        st.caption(f"NIM: {student['nim']}")
+        st.markdown(f"""
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 8px 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        ">
+            <div style="
+                background: linear-gradient(135deg, #3b82f6, #2563eb);
+                color: #ffffff;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                font-weight: 700;
+                flex-shrink: 0;
+            ">
+                {initial_char}
+            </div>
+            <div style="min-width: 0;">
+                <div style="font-size: 15px; font-weight: 700; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {student['name']}
+                </div>
+                <div style="font-size: 12.5px; font-weight: 600; color: #38bdf8; margin-top: 1px;">
+                    NIM: <span style="color: #cbd5e1; font-weight: 600;">{student['nim']}</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col_btn_logout:
-        st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
         if st.button("🚪 Keluar", type="secondary", use_container_width=True):
             st.session_state["user"] = None
             st.rerun()
@@ -49,13 +83,17 @@ st.success(
 
 st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
 
-# ---------- 4 Tab Fitur Utama ----------
-tab_docs, tab_chat, tab_quiz, tab_cards = st.tabs([
+# ---------- 5 Tab Fitur Utama ----------
+tab_dash, tab_docs, tab_chat, tab_quiz, tab_cards = st.tabs([
+    "🏠 Dashboard Ringkasan",
     "📁 Dokumen Kuliah",
     "💬 Chatbot & Sitasi",
     "📝 Generatif Soal (Kuis)",
     "🃏 Flashcard Pintar"
 ])
+
+with tab_dash:
+    dashboard.render(student)
 
 with tab_docs:
     documents.render(student)
