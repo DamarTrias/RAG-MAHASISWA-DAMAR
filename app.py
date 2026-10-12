@@ -64,7 +64,7 @@ with col_account:
             background: rgba(255, 255, 255, 0.04);
             border: 1.5px solid rgba(255, 255, 255, 0.18);
             border-radius: 12px;
-            padding: 8px 14px;
+            padding: 8px 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         ">
             <div style="
